@@ -20,52 +20,29 @@ public class LinearEquationLogic {
         int y1;
         int x2;
         int y2;
-        int indexOfComma;
-        int indexOfLastParentheses;
+        int indexOfComma1;
+        int indexOfComma2;
 
         System.out.print("Enter coordinate 1: ");
         String coord1 = myScanner.nextLine();
         System.out.print("Enter coordinate 2: ");
         String coord2 = myScanner.nextLine();
 
-        indexOfComma = coord1.indexOf(",");
-        indexOfLastParentheses = coord1.substring(1).indexOf(")") + 1;
+        indexOfComma1 = coord1.indexOf(",");
+        indexOfComma2 = coord2.indexOf(",");
 
-        if (coord1.substring(1,2).equals("-")) {
-            x1 = Integer.parseInt(coord1.substring(2, indexOfComma));
-            x1 *= -1;
-        } else {
-            x1 = Integer.parseInt(coord1.substring(1, indexOfComma));
-        }
+        x1 = Integer.parseInt(coord1.substring(1, indexOfComma1));
+        y1 = Integer.parseInt(coord1.substring(indexOfComma1 + 2, coord1.length() - 1));
+        x2 = Integer.parseInt(coord2.substring(1, indexOfComma2));
+        y2 = Integer.parseInt(coord2.substring(indexOfComma2 + 2, coord2.length() - 1));
 
-        if (coord1.substring(indexOfComma + 2, indexOfComma + 3).equals("-")) {
-            y1 = Integer.parseInt(coord1.substring(indexOfComma + 3, indexOfLastParentheses));
-            y1 *= -1;
-        } else {
-            y1 = Integer.parseInt(coord1.substring(indexOfComma + 2, indexOfLastParentheses));
-        }
-
-        indexOfComma = coord2.indexOf(",");
-        indexOfLastParentheses = coord2.substring(1).indexOf(")") + 1;
-
-        if (coord2.substring(1,2).equals("-")) {
-            x2 = Integer.parseInt(coord2.substring(2, indexOfComma));
-            x2 *= -1;
-        } else {
-            x2 = Integer.parseInt(coord2.substring(1, indexOfComma));
-        }
-
-        if (coord2.substring(indexOfComma + 2, indexOfComma + 3).equals("-")) {
-            y2 = Integer.parseInt(coord2.substring(indexOfComma + 3, indexOfLastParentheses));
-            y2 *= -1;
-        } else {
-            y2 = Integer.parseInt(coord2.substring(indexOfComma + 2, indexOfLastParentheses));
-        }
 
         linear = new LinearEquation(x1, y1, x2, y2);
         System.out.println();
         printInfo();
-        findY();
+        if (x1 != x2) {
+            findY();
+        }
     }
 
     private void printInfo() {
@@ -77,7 +54,6 @@ public class LinearEquationLogic {
         System.out.print("Enter a value for x: ");
         System.out.println("\nThe point on the line is " + linear.coordinateForX(myScanner.nextDouble()));
         myScanner.nextLine();
-        System.out.println();
     }
 
     private void getData() {
@@ -88,6 +64,7 @@ public class LinearEquationLogic {
             System.out.print("Would you like to enter another pair of coordinates? y/n: ");
             userResponse = myScanner.nextLine();
         }
+        System.out.println("Thank you for using the slope calculator, goodbye!");
     }
 
 

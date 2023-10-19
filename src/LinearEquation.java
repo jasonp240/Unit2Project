@@ -21,20 +21,37 @@ public class LinearEquation {
     }
 
     public double yIntercept() {
-        return y2 - (slope() * x2);
+        return roundedToHundredth(y2 - (slope() * x2));
     }
 
     public String equation() {
+        String yInter;
+        if (yIntercept() > 0) {
+            yInter = "+ " + String.valueOf(yIntercept());
+        } else if (yIntercept() < 0){
+            yInter = "- " + String.valueOf(Math.abs(yIntercept()));
+        } else {
+            yInter = "";
+        }
         int top = y2 - y1;
         int bot = x2 - x1;
         if (top % bot == 0) {
-            return "y = " + top / bot + "x " + yIntercept();
+            if (top / bot == 1) {
+                return "y = x " + yInter;
+            } else if (top / bot == -1){
+                return "y = -x " + yInter;
+            } else if (top / bot == 0){
+                return "y = " + y1;
+            }
+            return "y = " + top / bot + "x " + yInter;
         } else if (top < 0 && bot < 0) {
-            return "y = " + (top * -1) + "/" + (bot * -1) + "x + " + yIntercept();
-        } else if (yIntercept() < 0) {
-            return "y = " + top + "/" + bot + "x + " + yIntercept() * -1;
+            return "y = " + Math.abs(top) + "/" + Math.abs(bot) + "x " + yInter;
+        } else if (bot < 0) {
+            return "y = -" + top + "/" + Math.abs(bot) + "x " + yInter;
+        } else if (top / bot == 1 && yIntercept() == 0) {
+            return "y = x";
         }
-        return "y = " + top + "/" + bot + "x + -" + yIntercept();
+        return "y = " + top + "/" + bot + "x " + yInter;
     }
 
     public String coordinateForX(double x) {
@@ -43,8 +60,9 @@ public class LinearEquation {
 
     public String lineInfo() {
         if (x1 == x2) {
-            return "These points are on a vertical line: x = " + x1;
+            return "These points are on a vertical line: x = " + x1 +"\n";
         }
+
         return "The two points are: (" + x1 + ", " + y1 + ") and (" + x2 + ", " + y2 + ")\n" +
                 "The equation of the line between these points is " + equation() +"\n" +
                 "The slope of this line is: " + slope() +"\n" +
