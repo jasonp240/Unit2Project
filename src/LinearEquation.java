@@ -36,7 +36,7 @@ public class LinearEquation {
         int top = y2 - y1;
         int bot = x2 - x1;
         if (top % bot == 0) {
-            if (top / bot == 1) {
+            if (top / bot == 1 && top != 0) {
                 return "y = x " + yInter;
             } else if (top / bot == -1){
                 return "y = -x " + yInter;
@@ -48,8 +48,6 @@ public class LinearEquation {
             return "y = " + Math.abs(top) + "/" + Math.abs(bot) + "x " + yInter;
         } else if (bot < 0) {
             return "y = -" + top + "/" + Math.abs(bot) + "x " + yInter;
-        } else if (top / bot == 1 && yIntercept() == 0) {
-            return "y = x";
         }
         return "y = " + top + "/" + bot + "x " + yInter;
     }
